@@ -1,69 +1,77 @@
-import Image from "next/image";
+import {db} from "@/database";
+import {createUser, updateUser, deleteUser} from "./actions";
 
-export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+const input =
+    "rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-400";
+const btn =
+    "rounded-md px-3 py-2 text-sm font-medium text-white transition-colors";
+
+export default async function Home() {
+    const users = await db.query.users.findMany({
+        limit: 20,
+    });
+
+    return (
+        <main className="mx-auto max-w-3xl space-y-8 p-8 text-zinc-900 dark:text-zinc-100">
+            <h1 className="text-2xl font-semibold">Users</h1>
+
+            {/* Create */}
+            <section className="space-y-3 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+                <h2 className="text-sm font-medium text-zinc-500">Add user</h2>
+                <form action={createUser} className="flex gap-2">
+                    <input name="name" placeholder="Name" required className={`${input} flex-1`}/>
+                    <input
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        required
+                        className={`${input} flex-1`}
+                    />
+                    <button type="submit"
+                            className={`${btn} bg-zinc-900 hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300`}>
+                        Add
+                    </button>
+                </form>
+            </section>
+
+            {/* List */}
+            <section className="space-y-3">
+                <h2 className="text-sm font-medium text-zinc-500">
+                    All users ({users.length})
+                </h2>
+
+                {users.length === 0 && (
+                    <p className="text-sm text-zinc-500">No users yet.</p>
+                )}
+
+                <ul className="divide-y divide-zinc-200 rounded-lg border border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
+                    {users.map((u) => (
+                        <li key={u.id} className="flex items-center gap-2 p-3">
+                            <form action={updateUser} className="flex flex-1 gap-2">
+                                <input type="hidden" name="id" value={u.id}/>
+                                <input name="name" defaultValue={u.name} required className={`${input} flex-1`}/>
+                                <input
+                                    name="email"
+                                    type="email"
+                                    defaultValue={u.email}
+                                    required
+                                    className={`${input} flex-1`}
+                                />
+                                <button type="submit" className={`${btn} bg-blue-600 hover:bg-blue-500`}>
+                                    Update
+                                </button>
+                            </form>
+
+                            <form action={deleteUser}>
+                                <input type="hidden" name="id" value={u.id}/>
+                                <button type="submit" className={`${btn} bg-red-600 hover:bg-red-500`}>
+                                    Delete
+                                </button>
+                            </form>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        </main>
+    );
 }
