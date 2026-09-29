@@ -5,13 +5,6 @@ import {users} from "@/database/schema";
 import {eq} from "drizzle-orm";
 import {revalidatePath} from "next/cache";
 
-export async function getUsers() {
-  return db.query.users.findMany({
-    orderBy: (u, { desc }) => desc(u.id),
-    limit: 20,
-  });
-}
-
 export async function createUser(formData: FormData) {
     await db.insert(users).values({
         name: formData.get("name") as string,
