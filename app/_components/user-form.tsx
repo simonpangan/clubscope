@@ -13,16 +13,30 @@ export default function UserForm() {
   return (
     <form action={formAction} className="flex gap-2">
       <div className="flex-1">
-        <input name="name" placeholder="Name" className={`${input} w-full`} />
-        {state?.errors?.name && <p className="text-sm text-red-500">{state.errors.name[0]}</p>}
+        <input
+          name="name"
+          placeholder="Name"
+          defaultValue={state.values?.name ?? ''}
+          className={`${input} w-full`}
+          aria-invalid={!!state.errors?.name}
+        />
+        {state.errors?.name && <p className="text-sm text-red-500">{state.errors.name[0]}</p>}
       </div>
       <div className="flex-1">
-        <input name="email" type="text" placeholder="Email" className={`${input} w-full`} />
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          defaultValue={state.values?.email ?? ''}
+          className={`${input} w-full`}
+          aria-invalid={!!state.errors?.email}
+        />
         {state?.errors?.email && <p className="text-sm text-red-500">{state.errors.email[0]}</p>}
       </div>
       <button type="submit" disabled={isPending} className={btn}>
         {isPending ? 'Adding...' : 'Add'}
       </button>
+      {state.message && <p className="text-sm">{state.message}</p>}
     </form>
   );
 }
