@@ -1,6 +1,7 @@
 import { db } from '@/database';
 import UserForm from '@/app/_components/user-form';
-import { updateUser, deleteUser } from './actions';
+import { updateUser } from './actions';
+import DeleteUserForm from '@/app/_components/delete-user-form';
 
 const input =
   'rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-400';
@@ -20,7 +21,6 @@ export default async function Home() {
         <UserForm />
       </section>
 
-      {/* List */}
       <section className="space-y-3">
         <h2 className="text-sm font-medium text-zinc-500">All users ({users.length})</h2>
 
@@ -43,13 +43,7 @@ export default async function Home() {
                   Update
                 </button>
               </form>
-
-              <form action={deleteUser}>
-                <input type="hidden" name="id" value={u.id} />
-                <button type="submit" className={`${btn} bg-red-600 hover:bg-red-500`}>
-                  Delete
-                </button>
-              </form>
+              <DeleteUserForm id={u.id} />
             </li>
           ))}
         </ul>
