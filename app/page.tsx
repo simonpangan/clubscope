@@ -6,6 +6,7 @@ const btn = 'rounded-md px-3 py-2 text-sm font-medium text-white transition-colo
 
 export default async function Home() {
   const users = await db.query.users.findMany({
+    orderBy: (users, { asc }) => [asc(users.id)],
     limit: 20,
   });
 
