@@ -12,11 +12,13 @@
     "db:generate": "drizzle-kit generate --config=config/drizzle.config.ts",
     "db:migrate": "drizzle-kit migrate --config=config/drizzle.config.ts",
     "db:push": "drizzle-kit push --config=config/drizzle.config.ts",
-    "db:studio": "drizzle-kit studio --config=config/drizzle.config.ts"
+    "db:studio": "drizzle-kit studio --config=config/drizzle.config.ts",
+    "db:seed": "npx tsx --env-file=.env database/seeder.ts"
   },
   "dependencies": {
     "dotenv": "^18.0.4",
     "drizzle-orm": "^0.45.3",
+    "drizzle-seed": "^0.3.1",
     "next": "16.3.6",
     "pg": "^8.23.0",
     "react": "19.2.8",
