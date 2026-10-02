@@ -1,15 +1,10 @@
 import Link from 'next/link';
 import { db } from '@/database';
-import { updateUser } from '@/actions/user-actions';
 import DeleteUserForm from '@/app/_components/delete-user-form';
 
-const input =
-  'rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-400';
 const btn = 'rounded-md px-3 py-2 text-sm font-medium text-white transition-colors';
 
 export default async function Home() {
-  //   TODO
-  // use shadcdn
   const users = await db.query.users.findMany({
     limit: 20,
   });
@@ -33,20 +28,13 @@ export default async function Home() {
         <ul className="divide-y divide-zinc-200 rounded-lg border border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
           {users.map((u) => (
             <li key={u.id} className="flex items-center gap-2 p-3">
-              <form action={updateUser} className="flex flex-1 gap-2">
-                <input type="hidden" name="id" value={u.id} />
-                <input name="name" defaultValue={u.name} required className={`${input} flex-1`} />
-                <input
-                  name="email"
-                  type="email"
-                  defaultValue={u.email}
-                  required
-                  className={`${input} flex-1`}
-                />
-                <button type="submit" className={`${btn} bg-blue-600 hover:bg-blue-500`}>
-                  Update
-                </button>
-              </form>
+              <div className="flex min-w-0 flex-1 gap-2 text-sm">
+                <span className="flex-1 truncate font-medium">{u.name}</span>
+                <span className="flex-1 truncate text-zinc-500">{u.email}</span>
+              </div>
+              <Link href={`/users/${u.id}/edit`} className={`${btn} bg-blue-600 hover:bg-blue-500`}>
+                Edit
+              </Link>
               <DeleteUserForm id={u.id} />
             </li>
           ))}
