@@ -2,7 +2,7 @@
 
 'use client';
 
-import { deleteUser } from '@/app/actions';
+import { deleteUser } from '@/actions/user-actions';
 
 export default function DeleteUserForm({ id }: { id: number }) {
   return (

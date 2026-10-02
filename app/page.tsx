@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import { db } from '@/database';
-import UserForm from '@/app/_components/user-form';
-import { updateUser } from './actions';
+import { updateUser } from '@/actions/user-actions';
 import DeleteUserForm from '@/app/_components/delete-user-form';
 
 const input =
@@ -8,6 +8,8 @@ const input =
 const btn = 'rounded-md px-3 py-2 text-sm font-medium text-white transition-colors';
 
 export default async function Home() {
+  //   TODO
+  // use shadcdn
   const users = await db.query.users.findMany({
     limit: 20,
   });
@@ -18,7 +20,9 @@ export default async function Home() {
 
       <section className="space-y-3 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
         <h2 className="text-sm font-medium text-zinc-500">Add user</h2>
-        <UserForm />
+        <Link href="/users/create" className={`${btn} bg-blue-600 hover:bg-blue-500`}>
+          Add user
+        </Link>
       </section>
 
       <section className="space-y-3">

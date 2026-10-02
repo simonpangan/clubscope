@@ -1,6 +1,6 @@
 'use client';
 
-import { createUser } from '../actions';
+import { createUser } from '@/actions/user-actions';
 import { useActionState } from 'react';
 
 const input =
