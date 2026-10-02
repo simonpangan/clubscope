@@ -7,7 +7,7 @@ const input =
   'rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-400';
 const btn = 'rounded-md px-3 py-2 text-sm font-medium text-white transition-colors';
 
-export default function UserForm() {
+export default function CreateUser() {
   const [state, formAction, isPending] = useActionState(createUser, {});
 
   return (
