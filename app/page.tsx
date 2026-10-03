@@ -1,13 +1,21 @@
 import Link from 'next/link';
-import {ArrowRight, ExternalLink, Mail} from 'lucide-react';
-import {Badge} from '@/components/ui/badge';
-import {buttonVariants} from '@/components/ui/button';
+import { ArrowRight, ExternalLink, Mail } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { buttonVariants } from '@/components/ui/button';
 
 const GITHUB_URL = 'https://github.com/simonpangan';
 const REPO_URL = 'https://github.com/simonpangan/clubscope';
 const EMAIL = 'simonjoseph.pangan@gmail.com';
 
-const stack = ['Next.js', 'TypeScript', 'PostgreSQL', 'Drizzle ORM', 'Zod', 'shadcn/ui', 'Tailwind CSS'];
+const stack = [
+  'Next.js',
+  'TypeScript',
+  'PostgreSQL',
+  'Drizzle ORM',
+  'Zod',
+  'shadcn/ui',
+  'Tailwind CSS',
+];
 
 export default function Home() {
   return (
@@ -16,14 +24,14 @@ export default function Home() {
       <section className="relative overflow-hidden border-b">
         <div
           aria-hidden
-          className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:48px_48px] opacity-60 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]"
+          className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)] bg-[size:48px_48px] opacity-60"
         />
         <div className="mx-auto max-w-4xl space-y-6 px-6 py-24 text-center">
           <Badge variant="secondary">CRUD app demo</Badge>
           <h1 className="text-4xl font-semibold tracking-tight sm:text-6xl">
             A simple user CRUD, built end to end.
           </h1>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
             A full-stack demo built with Next.js, TypeScript, and PostgreSQL. Create, read, update,
             and delete users with server-side validation and a typed database layer.
           </p>
@@ -54,8 +62,8 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="mx-auto max-w-4xl space-y-4 px-6 py-12 text-center">
-        <p className="text-sm text-muted-foreground">
-          Built by <span className="font-medium text-foreground">Simon Joseph</span>. Happy to walk
+        <p className="text-muted-foreground text-sm">
+          Built by <span className="text-foreground font-medium">Simon Joseph</span>. Happy to walk
           through any part of the code.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3">

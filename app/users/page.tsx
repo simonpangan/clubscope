@@ -1,12 +1,19 @@
 import Link from 'next/link';
-import {ArrowLeft, Pencil, Plus, Users} from 'lucide-react';
-import {db} from '@/database';
+import { ArrowLeft, Pencil, Plus, Users } from 'lucide-react';
+import { db } from '@/database';
 import DeleteUserForm from './delete-user-form';
-import {Avatar, AvatarFallback} from '@/components/ui/avatar';
-import {Badge} from '@/components/ui/badge';
-import {buttonVariants} from '@/components/ui/button';
-import {Card, CardHeader, CardTitle} from '@/components/ui/card';
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from '@/components/ui/table';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { buttonVariants } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 function getInitials(name: string) {
   return name

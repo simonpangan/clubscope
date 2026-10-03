@@ -1,8 +1,8 @@
 'use client';
 
-import {Trash2} from 'lucide-react';
-import {deleteUser} from '@/actions/user-actions';
-import {Button} from '@/components/ui/button';
+import { Trash2 } from 'lucide-react';
+import { deleteUser } from '@/actions/user-actions';
+import { Button } from '@/components/ui/button';
 
 export default function DeleteUserForm({ id }: { id: number }) {
   return (
@@ -16,16 +16,16 @@ export default function DeleteUserForm({ id }: { id: number }) {
     >
       <input type="hidden" name="id" value={id} />
 
-        <Button
-            type="submit"
-            variant="outline"
-            size="icon-sm"
-            aria-label="Delete user"
-            title="Delete user"
-            className="text-destructive hover:bg-destructive/10 hover:text-destructive"
-        >
+      <Button
+        type="submit"
+        variant="outline"
+        size="icon-sm"
+        aria-label="Delete user"
+        title="Delete user"
+        className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+      >
         <Trash2 />
-        </Button>
+      </Button>
     </form>
   );
 }
