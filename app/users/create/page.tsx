@@ -1,42 +1,90 @@
 'use client';
 
-import { createUser } from '@/actions/user-actions';
-import { useActionState } from 'react';
-
-const input =
-  'rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-400';
-const btn = 'rounded-md px-3 py-2 text-sm font-medium text-white transition-colors';
+import Link from 'next/link';
+import {useActionState} from 'react';
+import {ArrowLeft, Loader2} from 'lucide-react';
+import {createUser} from '@/actions/user-actions';
+import {Button, buttonVariants} from '@/components/ui/button';
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from '@/components/ui/card';
+import {Input} from '@/components/ui/input';
+import {Label} from '@/components/ui/label';
 
 export default function CreateUser() {
   const [state, formAction, isPending] = useActionState(createUser, {});
 
   return (
-    <form action={formAction} className="flex gap-2">
-      <div className="flex-1">
-        <input
-          name="name"
-          placeholder="Name"
-          defaultValue={state.values?.name ?? ''}
-          className={`${input} w-full`}
-          aria-invalid={!!state.errors?.name}
-        />
-        {state.errors?.name && <p className="text-sm text-red-500">{state.errors.name[0]}</p>}
-      </div>
-      <div className="flex-1">
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          defaultValue={state.values?.email ?? ''}
-          className={`${input} w-full`}
-          aria-invalid={!!state.errors?.email}
-        />
-        {state?.errors?.email && <p className="text-sm text-red-500">{state.errors.email[0]}</p>}
-      </div>
-      <button type="submit" disabled={isPending} className={btn}>
-        {isPending ? 'Adding...' : 'Add'}
-      </button>
-      {state.message && <p className="text-sm">{state.message}</p>}
-    </form>
+    <div className="mx-auto w-full max-w-md space-y-6 px-6 py-12">
+      <Link
+        href="/"
+        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <ArrowLeft className="size-4" />
+        Back to users
+      </Link>
+
+      <form action={formAction}>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-2xl">Add user</CardTitle>
+            <CardDescription>
+              Enter the details of the person you want to add.
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-5">
+            <div className="space-y-2">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                name="name"
+                placeholder="Jane Doe"
+                defaultValue={state.values?.name ?? ''}
+                aria-invalid={!!state.errors?.name}
+                aria-describedby={state.errors?.name ? 'name-error' : undefined}
+              />
+              {state.errors?.name && (
+                <p id="name-error" className="text-sm text-destructive">
+                  {state.errors.name[0]}
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="jane@example.com"
+                defaultValue={state.values?.email ?? ''}
+                aria-invalid={!!state.errors?.email}
+                aria-describedby={state.errors?.email ? 'email-error' : undefined}
+              />
+              {state.errors?.email && (
+                <p id="email-error" className="text-sm text-destructive">
+                  {state.errors.email[0]}
+                </p>
+              )}
+            </div>
+
+            {state.message && (
+              <p role="status" className="text-sm text-muted-foreground">
+                {state.message}
+              </p>
+            )}
+          </CardContent>
+
+          <CardFooter className="justify-end gap-2">
+            <Link href="/" className={buttonVariants({ variant: 'outline' })}>
+              Cancel
+            </Link>
+            <Button type="submit" disabled={isPending}>
+              {isPending && <Loader2 className="animate-spin" />}
+              {isPending ? 'Adding...' : 'Add user'}
+            </Button>
+          </CardFooter>
+        </Card>
+      </form>
+    </div>
   );
 }
