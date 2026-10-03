@@ -1,12 +1,19 @@
 import Link from 'next/link';
-import {Pencil, Plus, Users} from 'lucide-react';
-import {db} from '@/database';
+import { Pencil, Plus, Users } from 'lucide-react';
+import { db } from '@/database';
 import DeleteUserForm from '@/app/_components/delete-user-form';
-import {Avatar, AvatarFallback} from '@/components/ui/avatar';
-import {Badge} from '@/components/ui/badge';
-import {buttonVariants} from '@/components/ui/button';
-import {Card, CardHeader, CardTitle} from '@/components/ui/card';
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from '@/components/ui/table';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { buttonVariants } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 function getInitials(name: string) {
   return name
@@ -27,7 +34,7 @@ export default async function Home() {
       <div className="flex items-end justify-between gap-4">
         <div className="space-y-1">
           <h1 className="text-3xl font-semibold tracking-tight">Users</h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Manage the people who have access to your app.
           </p>
         </div>
@@ -56,12 +63,12 @@ export default async function Home() {
               <TableRow className="hover:bg-transparent">
                 <TableCell colSpan={3} className="h-48">
                   <div className="flex flex-col items-center justify-center gap-3 text-center">
-                    <div className="rounded-full bg-muted p-3">
-                      <Users className="size-5 text-muted-foreground" />
+                    <div className="bg-muted rounded-full p-3">
+                      <Users className="text-muted-foreground size-5" />
                     </div>
                     <div className="space-y-1">
                       <p className="text-sm font-medium">No users yet</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         Get started by adding your first user.
                       </p>
                     </div>
