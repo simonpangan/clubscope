@@ -1,11 +1,11 @@
 'use server';
 
-import {z} from 'zod';
-import {db} from '@/database';
-import {users} from '@/database/schema';
-import {eq} from 'drizzle-orm';
-import {revalidatePath} from 'next/cache';
-import {redirect} from 'next/navigation';
+import { z } from 'zod';
+import { db } from '@/database';
+import { users } from '@/database/schema';
+import { eq } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 type UserFormState = {
   message?: string;
