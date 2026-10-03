@@ -110,10 +110,11 @@ export default async function UsersPage() {
                   <div className="flex items-center justify-end gap-2">
                     <Link
                       href={`/users/${u.id}/edit`}
+                      aria-label="Edit user"
+                      title="Edit user"
                       className={buttonVariants({ variant: 'outline', size: 'sm' })}
                     >
                       <Pencil />
-                      Edit
                     </Link>
                     <DeleteUserForm id={u.id} />
                   </div>
