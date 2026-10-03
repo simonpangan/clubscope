@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {Pencil, Plus, Users} from 'lucide-react';
+import {ArrowLeft, Pencil, Plus, Users} from 'lucide-react';
 import {db} from '@/database';
 import DeleteUserForm from './delete-user-form';
 import {Avatar, AvatarFallback} from '@/components/ui/avatar';
@@ -17,13 +17,21 @@ function getInitials(name: string) {
     .join('');
 }
 
-export default async function Home() {
+export default async function UsersPage() {
   const users = await db.query.users.findMany({
     orderBy: (users, { asc }) => [asc(users.id)],
   });
 
   return (
     <main className="mx-auto max-w-4xl space-y-8 px-6 py-12">
+      <Link
+        href="/"
+        className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors"
+      >
+        <ArrowLeft className="size-4" />
+        Back to home
+      </Link>
+
       <div className="flex items-end justify-between gap-4">
         <div className="space-y-1">
           <h1 className="text-3xl font-semibold tracking-tight">Users</h1>
@@ -36,6 +44,7 @@ export default async function Home() {
           Add user
         </Link>
       </div>
+
       <Card className="gap-0 overflow-hidden py-0">
         <CardHeader className="flex flex-row items-center justify-between border-b px-6 py-4">
           <CardTitle className="text-base">All users</CardTitle>
