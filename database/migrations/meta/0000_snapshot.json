@@ -1,5 +1,5 @@
 {
-  "id": "359df38b-4058-46a1-9256-c6f1b0c937bc",
+  "id": "4cf4aea7-0346-4d50-bcea-d803164dea2f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -31,12 +31,6 @@
           "primaryKey": false,
           "notNull": true
         },
-        "age": {
-          "name": "age",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
         "email": {
           "name": "email",
           "type": "varchar(255)",
@@ -51,7 +45,9 @@
         "users_email_unique": {
           "name": "users_email_unique",
           "nullsNotDistinct": false,
-          "columns": ["email"]
+          "columns": [
+            "email"
+          ]
         }
       },
       "policies": {},
