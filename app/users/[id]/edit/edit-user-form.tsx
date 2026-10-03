@@ -1,61 +1,96 @@
 'use client';
 
+import Link from 'next/link';
 import { useActionState } from 'react';
+import { ArrowLeft, Loader2 } from 'lucide-react';
 import { updateUser } from '@/actions/user-actions';
 import type { User } from '@/types';
-
-const input =
-  'rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-400';
-const btn = 'rounded-md px-3 py-2 text-sm font-medium text-white transition-colors';
+import { Button, buttonVariants } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export default function EditUserForm({ user }: { user: User }) {
   const [state, formAction, isPending] = useActionState(updateUser, {});
 
   return (
-    <form
-      action={formAction}
-      className="space-y-4 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800"
-    >
-      <input type="hidden" name="id" value={user.id} />
-
-      <div className="space-y-1">
-        <label htmlFor="name" className="text-sm font-medium text-zinc-500">
-          Name
-        </label>
-        <input
-          id="name"
-          name="name"
-          defaultValue={state.values?.name ?? user.name}
-          className={`${input} w-full`}
-          aria-invalid={!!state.errors?.name}
-        />
-        {state.errors?.name && <p className="text-sm text-red-500">{state.errors.name[0]}</p>}
-      </div>
-
-      <div className="space-y-1">
-        <label htmlFor="email" className="text-sm font-medium text-zinc-500">
-          Email
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          defaultValue={state.values?.email ?? user.email}
-          className={`${input} w-full`}
-          aria-invalid={!!state.errors?.email}
-        />
-        {state.errors?.email && <p className="text-sm text-red-500">{state.errors.email[0]}</p>}
-      </div>
-
-      <button
-        type="submit"
-        disabled={isPending}
-        className={`${btn} bg-blue-600 hover:bg-blue-500 disabled:opacity-50`}
+    <>
+      <Link
+        href="/"
+        className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors"
       >
-        {isPending ? 'Saving...' : 'Save changes'}
-      </button>
+        <ArrowLeft className="size-4" />
+        Back to users
+      </Link>
 
-      {state.message && <p className="text-sm text-red-500">{state.message}</p>}
-    </form>
+      <form action={formAction}>
+        <input type="hidden" name="id" value={user.id} />
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-2xl">Edit user</CardTitle>
+            <CardDescription>Update the details for {user.name}.</CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-5">
+            <div className="space-y-2">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                name="name"
+                defaultValue={state.values?.name ?? user.name}
+                aria-invalid={!!state.errors?.name}
+                aria-describedby={state.errors?.name ? 'name-error' : undefined}
+              />
+              {state.errors?.name && (
+                <p id="name-error" className="text-destructive text-sm">
+                  {state.errors.name[0]}
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                defaultValue={state.values?.email ?? user.email}
+                aria-invalid={!!state.errors?.email}
+                aria-describedby={state.errors?.email ? 'email-error' : undefined}
+              />
+              {state.errors?.email && (
+                <p id="email-error" className="text-destructive text-sm">
+                  {state.errors.email[0]}
+                </p>
+              )}
+            </div>
+
+            {state.message && (
+              <p role="status" className="text-muted-foreground text-sm">
+                {state.message}
+              </p>
+            )}
+          </CardContent>
+
+          <CardFooter className="justify-end gap-2">
+            <Link href="/" className={buttonVariants({ variant: 'outline' })}>
+              Cancel
+            </Link>
+            <Button type="submit" disabled={isPending}>
+              {isPending && <Loader2 className="animate-spin" />}
+              {isPending ? 'Saving...' : 'Save changes'}
+            </Button>
+          </CardFooter>
+        </Card>
+      </form>
+    </>
   );
 }

@@ -19,8 +19,7 @@ export default async function EditUserPage({ params }: { params: Promise<{ id: s
   }
 
   return (
-    <main className="mx-auto max-w-md p-6">
-      <h1 className="mb-4 text-xl font-semibold">Edit user</h1>
+    <main className="mx-auto w-full max-w-md space-y-6 px-6 py-12">
       <EditUserForm user={user} />
     </main>
   );
