@@ -1,11 +1,11 @@
 'use server';
 
-import { z } from 'zod';
-import { db } from '@/database';
-import { users } from '@/database/schema';
-import { eq } from 'drizzle-orm';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+import {z} from 'zod';
+import {db} from '@/database';
+import {users} from '@/database/schema';
+import {eq} from 'drizzle-orm';
+import {revalidatePath} from 'next/cache';
+import {redirect} from 'next/navigation';
 
 type UserFormState = {
   message?: string;
@@ -20,7 +20,11 @@ type UserFormState = {
 };
 
 const userSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
+  name: z
+    .string()
+    .trim()
+    .min(2, 'Name must be at least 2 characters')
+    .max(100, 'Name must be at most 100 characters'),
   email: z.email('Invalid email address'),
 });
 
@@ -48,8 +52,8 @@ export async function createUser(
     return { values, message: 'Could not create user. Please try again.' };
   }
 
-  revalidatePath('/');
-  redirect('/');
+  revalidatePath('/users');
+  redirect('/users');
 }
 
 export async function updateUser(
@@ -77,13 +81,13 @@ export async function updateUser(
     return { values, message: 'Could not update user. Please try again.' };
   }
 
-  revalidatePath('/');
-  redirect('/');
+  revalidatePath('/users');
+  redirect('/users');
 }
 
 export async function deleteUser(formData: FormData) {
   const id = Number(formData.get('id'));
   await db.delete(users).where(eq(users.id, id));
 
-  revalidatePath('/');
+  revalidatePath('/users');
 }
