@@ -52,7 +52,7 @@ export async function createUser(
   }
 
   try {
-    await db.insert(users).values({ ...result.data, age: 12 });
+    await db.insert(users).values({ ...result.data });
   } catch {
     return { values, message: 'Could not create user. Please try again.' };
   }
