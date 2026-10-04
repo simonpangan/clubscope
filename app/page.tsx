@@ -1,12 +1,10 @@
 import Link from 'next/link';
-import { ArrowRight, ExternalLink, GitBranch, Mail, Rocket, ShieldCheck } from 'lucide-react';
+import { ArrowRight, ExternalLink, Mail } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 
 const GITHUB_URL = 'https://github.com/simonpangan';
 const REPO_URL = 'https://github.com/simonpangan/clubscope';
-const ACTIONS_URL = `${REPO_URL}/actions`;
-const CI_BADGE_URL = `${REPO_URL}/actions/workflows/ci.yml/badge.svg`;
 const EMAIL = 'simonjoseph.pangan@gmail.com';
 
 const stack = [
@@ -20,29 +18,9 @@ const stack = [
   'GitHub Actions',
 ];
 
-const pipeline = [
-  {
-    icon: GitBranch,
-    title: 'Every push & PR',
-    description:
-      'GitHub Actions installs dependencies and runs on each pull request and push to main.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Lint, typecheck, build',
-    description: 'ESLint, TypeScript, and a production build must pass before anything merges.',
-  },
-  {
-    icon: Rocket,
-    title: 'Auto deploy',
-    description: 'When CI passes on main, the app is deployed automatically.',
-  },
-];
-
 export default function Home() {
   return (
     <main className="min-h-screen">
-      {/* Hero */}
       <section className="relative overflow-hidden border-b">
         <div
           aria-hidden
@@ -82,7 +60,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="mx-auto max-w-4xl space-y-4 px-6 py-12 text-center">
         <p className="text-muted-foreground text-sm">
           Built by <span className="text-foreground font-medium">Simon Pangan</span>. Happy to walk
