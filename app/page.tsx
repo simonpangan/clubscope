@@ -1,11 +1,13 @@
 import Link from 'next/link';
-import { ArrowRight, ExternalLink, Mail } from 'lucide-react';
+import { ArrowRight, BookOpen, ExternalLink, Mail } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 
 const GITHUB_URL = 'https://github.com/simonpangan';
 const REPO_URL = 'https://github.com/simonpangan/clubscope';
 const EMAIL = 'simonjoseph.pangan@gmail.com';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/simonpangan/';
+const BLOG_URL = 'simonpangan.github.io';
 
 const stack = [
   'Next.js',
@@ -16,6 +18,11 @@ const stack = [
   'shadcn/ui',
   'Tailwind CSS',
   'GitHub Actions',
+];
+
+const links = [
+  { label: 'LinkedIn', href: LINKEDIN_URL },
+  { label: 'GitHub', href: GITHUB_URL },
 ];
 
 export default function Home() {
@@ -71,14 +78,26 @@ export default function Home() {
             Email me
           </a>
           <a
-            href={GITHUB_URL}
+            href={BLOG_URL}
             target="_blank"
             rel="noreferrer"
             className={buttonVariants({ variant: 'outline' })}
           >
-            GitHub
-            <ExternalLink />
+            <BookOpen />
+            Blog
           </a>
+          {links.map(({ label, href }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              className={buttonVariants({ variant: 'outline' })}
+            >
+              {label}
+              <ExternalLink />
+            </a>
+          ))}
         </div>
       </footer>
     </main>
