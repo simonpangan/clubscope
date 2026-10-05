@@ -25,12 +25,7 @@ const userSchema = z.object({
     .trim()
     .min(2, 'Name must be at least 2 characters')
     .max(100, 'Name must be at most 100 characters'),
-  email: z
-    .string()
-    .trim()
-    .toLowerCase()
-    .max(254, 'Email must be at most 254 characters')
-    .email('Enter a valid email address'),
+  email: z.email('Enter a valid email address'),
 });
 
 const updateUserSchema = userSchema.extend({
