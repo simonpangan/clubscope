@@ -11,8 +11,6 @@ async function main() {
       columns: {
         name: f.fullName(),
         email: f.email(),
-        age: f.int({ minValue: 18, maxValue: 65 }),
-        role: f.valuesFromArray({ values: ['admin', 'user'] }),
       },
     },
   }));
