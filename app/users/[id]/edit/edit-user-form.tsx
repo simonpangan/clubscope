@@ -23,7 +23,7 @@ export default function EditUserForm({ user }: { user: User }) {
   return (
     <>
       <Link
-        href="/"
+        href="/users"
         className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors"
       >
         <ArrowLeft className="size-4" />

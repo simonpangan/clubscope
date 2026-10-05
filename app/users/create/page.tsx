@@ -22,7 +22,7 @@ export default function CreateUser() {
   return (
     <div className="mx-auto w-full max-w-md space-y-6 px-6 py-12">
       <Link
-        href="/"
+        href="/users"
         className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors"
       >
         <ArrowLeft className="size-4" />
