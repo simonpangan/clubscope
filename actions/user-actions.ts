@@ -48,7 +48,8 @@ export async function createUser(
 
   try {
     await db.insert(users).values({ ...result.data });
-  } catch {
+  } catch (error) {
+    console.error('createUser failed:', error);
     return { values, message: 'Could not create user. Please try again.' };
   }
 
