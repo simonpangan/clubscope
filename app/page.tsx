@@ -7,7 +7,7 @@ const GITHUB_URL = 'https://github.com/simonpangan';
 const REPO_URL = 'https://github.com/simonpangan/clubscope';
 const EMAIL = 'simonjoseph.pangan@gmail.com';
 const LINKEDIN_URL = 'https://www.linkedin.com/in/simonpangan/';
-const BLOG_URL = 'simonpangan.github.io';
+const BLOG_URL = 'https://simonpangan.github.io';
 
 const stack = [
   'Next.js',
